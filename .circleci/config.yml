@@ -26,7 +26,7 @@ jobs:
 
             poetry install
 
-            if [ ! -d src/layer/python ]; then
+            if [ ! -d src/layers/modules/python ]; then
               make build
             fi
       - save_cache:
