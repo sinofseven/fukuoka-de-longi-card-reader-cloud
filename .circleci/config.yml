@@ -38,7 +38,7 @@ jobs:
             - src/layers/modules/python
           key: layer-{{ checksum "src/layers/modules/Dockerfile" }}-{{ checksum "src/layers/modules/requirements.txt" }}
       - run:
-          name: install dependencies
+          name: deploy
           command: |
             set -x
 
