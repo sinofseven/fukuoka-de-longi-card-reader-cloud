@@ -71,7 +71,7 @@ Resources:
   AbortMetricFilter:
     Type: AWS::Logs::MetricFilter
     Properties:
-      FilterPattern: Process exited before completing request"
+      FilterPattern: "Process exited before completing request"
       LogGroupName: !Ref FunctionLogGroup
       MetricTransformations:
         - MetricName: !Ref FunctionName
