@@ -20,6 +20,9 @@ Globals:
       - !Ref ModulesLayer
 
 Resources:
+  AlartSnsTopic:
+    Type: AWS::SNS::Topic
+
   ModulesLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
@@ -55,6 +58,7 @@ Resources:
       TemplateURL: log_group.yml
       Parameters:
         FunctionName: !Ref AddReactionHookFunction
+        AlartSnsTopicArn: !Ref AlartSnsTopic
 
   ParseReactionTopic:
     Type: AWS::SNS::Topic

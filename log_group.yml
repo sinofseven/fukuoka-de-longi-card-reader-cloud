@@ -8,9 +8,37 @@ Parameters:
     Type: Number
     Default: 14
 
+  AlartSnsTopicArn:
+    Type: String
+
 Resources:
   FunctionLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub /aws/lambda/${FunctionName}
       RetentionInDays: 14
+
+  ErrorMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      FilterPattern: '"error_message"'
+      LogGroupName: !Ref FunctionLogGroup
+      MetricTransformations:
+        - MetricName: !Ref FunctionName
+          MetricNamespace: LambdaErrors
+          MetricValue: "1"
+
+  ErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub Alarm-${FunctionName}
+      ActionsEnabled: true
+      MetricName: !Ref FunctionName
+      Namespace: LambdaErrors
+      Statistic: Sum
+      Period: 60
+      EvaluationPeriods: 1
+      Threshold: 1.0
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      AlarmActions:
+        - AlartSnsTopicArn
