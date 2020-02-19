@@ -35,6 +35,8 @@ Resources:
     Properties:
       CodeUri: src/handlers/add_reaction_hook
       Handler: index.handler
+      Policies:
+        - arn:aws:iam::aws:policy/AmazonSNSFullAccess
       Environment:
         Variables:
           TARGET_CHANNEL_ID: !Ref TargetChannelId
