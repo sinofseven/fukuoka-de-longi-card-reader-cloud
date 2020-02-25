@@ -36,7 +36,7 @@ def get_target_topic_arn() -> str:
 
 
 def has_target_channel(body: str, target_channel_id: str) -> bool:
-    return body.find(target_channel_id) > 0
+    return body.find(f'"channel":"{target_channel_id}"') > 0
 
 
 def publish(body: str, topic_arn: str, sns_client: BaseClient):

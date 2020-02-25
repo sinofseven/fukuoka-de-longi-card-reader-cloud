@@ -23,6 +23,21 @@ Resources:
   AlartSnsTopic:
     Type: AWS::SNS::Topic
 
+  MultiDataTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: partitionId
+          AttributeType: S
+        - AttributeName: sortId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: partitionId
+          KeyType: HASH
+        - AttributeName: sortId
+          KeyType: RANGE
+
   ModulesLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
